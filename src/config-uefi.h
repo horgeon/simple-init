@@ -16,3 +16,4 @@
 #define FT_CONFIG_OPTIONS_H "libs/freetype-uefi/ftoption.h"
 #define LV_CONF_PATH        lv_conf.h
 #define LODEPNG_NO_COMPILE_DISK
+#define DISABLE_DEBUG 1
