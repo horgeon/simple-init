@@ -23,7 +23,7 @@
   UefiBootManagerLib
   UefiBootServicesTableLib
   UefiRuntimeServicesTableLib
-  SimpleInitLua
+#  SimpleInitLua
   SimpleInitLib
   SimpleInitBootLinux
   SimpleInitLocate

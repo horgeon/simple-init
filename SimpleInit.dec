@@ -5,7 +5,7 @@
 
 [Includes]
   include
-  libs/lua
+#  libs/lua
   libs/stb
   libs/mxml
   libs/json-c

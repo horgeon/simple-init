@@ -15,7 +15,7 @@
   SimpleInit.dec
 
 [LibraryClasses]
-  LuaLib
+#  LuaLib
   DebugLib
   UefiBootManagerLib
   ReportStatusCodeLib

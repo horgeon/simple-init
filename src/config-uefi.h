@@ -6,7 +6,7 @@
 #define ENABLE_JSONC        1
 #define ENABLE_MXML         1
 #define ENABLE_STB          1
-#define ENABLE_LUA          1
+//define ENABLE_LUA          1
 #define ENABLE_FDT          1
 #define ENABLE_ZLIB         1
 #define ENABLE_LIBTSM       1

@@ -2,7 +2,7 @@
   STBLib|libs/stb/STBLib.inf
   Zlib|libs/zlib/Zlib.inf
   JSONC|libs/json-c/JSONC.inf
-  LuaLib|libs/lua/LuaLib.inf
+#  LuaLib|libs/lua/LuaLib.inf
   TSMLib|libs/libtsm/TSMLib.inf
   UfdtLib|libs/libufdt/UfdtLib.inf
   ZipLib|libs/libzip/ZipLib.inf
@@ -16,7 +16,7 @@
   SimpleInitCompatible|libs/compatible/SimpleInitCompatible.inf
   SimpleInitGUI|src/gui/SimpleInitGUI.inf
   SimpleInitLib|src/lib/SimpleInitLib.inf
-  SimpleInitLua|src/lua/SimpleInitLua.inf
+#  SimpleInitLua|src/lua/SimpleInitLua.inf
   SimpleInitBoot|src/boot/SimpleInitBoot.inf
   SimpleInitBootLinux|src/linux-boot/SimpleInitBootLinux.inf
   SimpleInitCompress|src/compress/SimpleInitCompress.inf
@@ -33,7 +33,7 @@
   libs/stb/STBLib.inf
   libs/zlib/Zlib.inf
   libs/json-c/JSONC.inf
-  libs/lua/LuaLib.inf
+#  libs/lua/LuaLib.inf
   libs/libtsm/TSMLib.inf
   libs/libufdt/UfdtLib.inf
   libs/libzip/ZipLib.inf
@@ -47,7 +47,7 @@
   libs/compatible/SimpleInitCompatible.inf
   src/gui/SimpleInitGUI.inf
   src/lib/SimpleInitLib.inf
-  src/lua/SimpleInitLua.inf
+#  src/lua/SimpleInitLua.inf
   src/boot/SimpleInitBoot.inf
   src/linux-boot/SimpleInitBootLinux.inf
   src/compress/SimpleInitCompress.inf

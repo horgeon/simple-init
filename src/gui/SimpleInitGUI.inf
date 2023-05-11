@@ -32,7 +32,7 @@
   MiniXML
   RegexLib
   HivexLib
-  SimpleInitLua
+#  SimpleInitLua
   SimpleInitLib
   SimpleInitBoot
   SimpleInitBootLinux
