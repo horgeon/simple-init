@@ -12,7 +12,9 @@
 #include"str.h"
 #include"assets.h"
 #include"defines.h"
+#ifdef ENABLE_LUA
 #include"gui/lua.h"
+#endif
 #include"render_internal.h"
 
 void render_obj_attr_free(xml_render_obj_attr*o){

@@ -6,6 +6,7 @@
  *
  */
 
+#ifdef ENABLE_LUA
 #include"boot.h"
 #include"confd.h"
 #include"logger.h"
@@ -35,3 +36,4 @@ int run_boot_lua(boot_config*boot){
 	#endif
 	return r;
 }
+#endif

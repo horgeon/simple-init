@@ -10,6 +10,10 @@
 #ifdef ENABLE_MXML
 #include"render_internal.h"
 
+#ifndef ENABLE_LUA
+#define LUA_OK 0
+#endif
+
 xml_render_code*render_new_scode(
 	xml_render*render,
 	const char*name,

@@ -12,7 +12,9 @@
 #include<stdint.h>
 #include"str.h"
 #include"list.h"
+#ifdef ENABLE_LUA
 #include"xlua.h"
+#endif
 #include"lock.h"
 #include"mxml.h"
 #include"logger.h"
@@ -250,20 +252,24 @@ struct xml_obj_handle{
 	xml_obj_handler post_hand;
 };
 
+#ifdef ENABLE_LUA
 struct lua_render_data{xml_render*render;};
 struct lua_render_obj_data{xml_render_obj*obj;};
 struct lua_render_event_data{xml_render_event*event;};
 struct lua_render_event_info_data{xml_event_info*info;};
+#endif
 
 extern xml_style_set_type xml_style_set_types[];
 extern xml_style_prop xml_style_props[];
 extern xml_attr_handle xml_attr_handles[];
 extern xml_obj_handle xml_obj_handles[];
 
+#ifdef ENABLE_LUA
 extern void render_to_lua(lua_State*L,xml_render*render);
 extern void render_obj_to_lua(lua_State*L,xml_render_obj*obj);
 extern void render_event_to_lua(lua_State*L,xml_render_event*event);
 extern void render_event_info_to_lua(lua_State*L,xml_event_info*info);
+#endif
 
 extern bool list_render_obj_attr_cmp(list*l,void*d);
 extern bool list_render_obj_cmp(list*l,void*d);
@@ -276,7 +282,9 @@ extern bool render_init_attributes(xml_render_obj*obj,bool resize);
 extern void render_obj_attr_free(xml_render_obj_attr*o);
 extern bool render_move_callbacks(xml_render*render);
 extern int render_code_exec_run(xml_render_code*code);
+#ifdef ENABLE_LUA
 extern int render_lua_init_event(lua_State*L);
+#endif
 extern bool xml_style_apply_style(
 	xml_render_style*style,
 	const char*k,
