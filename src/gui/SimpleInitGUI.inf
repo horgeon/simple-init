@@ -65,6 +65,7 @@
   gEfiSimpleFileSystemProtocolGuid
   gEfiTimestampProtocolGuid
   gEfiAcpiTableProtocolGuid
+  gEfiSerialIoProtocolGuid
 
 [Pcd]
   gSimpleInitTokenSpaceGuid.PcdGuiDefaultDPI
