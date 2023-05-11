@@ -92,7 +92,7 @@ static struct initial_cfg{
 			.ident="continue",
 			.desc="Continue Boot",
 			.save=false,.replace=false,
-			.show=true,.enabled=true
+			.show=false,.enabled=false
 		},.args=NULL
 	},{
 		.valid=true,
@@ -101,7 +101,7 @@ static struct initial_cfg{
 			.ident="simple-init",
 			.desc="Enter Simple Init",
 			.save=false,.replace=false,
-			.show=true,.enabled=true
+			.show=false,.enabled=false
 		},.args=NULL
 	},{
 		.valid=true,
