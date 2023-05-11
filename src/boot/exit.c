@@ -12,7 +12,7 @@
 #include"boot.h"
 
 int run_boot_exit(boot_config*boot){
-	if(!boot->splash[0])BootLogoEnableLogo();
+	//if(!boot->splash[0])BootLogoEnableLogo();
 	gBS->Exit(gImageHandle,EFI_ABORTED,0,NULL);
 	return -1;
 }

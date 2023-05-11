@@ -7,7 +7,7 @@
  */
 
 #ifdef ENABLE_UEFI
-#include<Protocol/PlatformLogo.h>
+#include<Protocol/BootLogo2.h>
 #include<Library/UefiBootServicesTableLib.h>
 #include"compatible.h"
 #endif
@@ -24,37 +24,36 @@ static lv_color_t real_color;
 #ifdef ENABLE_UEFI
 static bool draw_edk2_logo(lv_obj_t*obj){
 	size_t off;
-	UINT32 ins=0;
 	EFI_STATUS st;
 	lv_align_t align;
-	INTN offx=0,offy=0;
+	UINTN offx=0,offy=0;
+	UINTN width=0,height=0;
 	lv_color_t*buffer=NULL;
 	lv_img_t*ext=(lv_img_t*)obj;
-	EDKII_PLATFORM_LOGO_PROTOCOL*plogo=NULL;
-	EDKII_PLATFORM_LOGO_DISPLAY_ATTRIBUTE attr=0;
+	EDKII_BOOT_LOGO2_PROTOCOL*bootlogo2=NULL;
 	static lv_img_dsc_t dsc={.data=NULL,.data_size=0};
-	EFI_IMAGE_INPUT logo={.Bitmap=NULL,.Flags=0,.Width=0,.Height=0};
+	EFI_GRAPHICS_OUTPUT_BLT_PIXEL*logoBitmap=NULL;
 	if(dsc.data)free((void*)dsc.data);
 	memset(&dsc,0,sizeof(dsc));
-	st=gBS->LocateProtocol(&gEdkiiPlatformLogoProtocolGuid,NULL,(VOID**)&plogo);
-	if(EFI_ERROR(st)||!plogo){
+	st=gBS->LocateProtocol(&gEdkiiBootLogo2ProtocolGuid,NULL,(VOID**)&bootlogo2);
+	if(EFI_ERROR(st)||!bootlogo2){
 		tlog_debug(
-			"get edk2 platform logo protocol failed: %s",
+			"get edk2 boot logo2 protocol failed: %s",
 			efi_status_to_string(st)
 		);
 		return false;
 	}
-	st=plogo->GetImage(plogo,&ins,&logo,&attr,&offx,&offy);
-	if(EFI_ERROR(st)||!logo.Bitmap||logo.Width<=0||logo.Height<=0){
+	st=bootlogo2->GetBootLogo(bootlogo2, &logoBitmap, &offx, &offy, &width, &height);
+	if(EFI_ERROR(st)||!logoBitmap||width<=0||height<=0){
 		tlog_warn(
 			"cannot get logo image from edk2 protocol: %s",
 			efi_status_to_string(st)
 		);
 		return false;
 	}
-	tlog_debug("logo image size %ux%u",logo.Width,logo.Height);
+	tlog_debug("logo image size %llux%llu",width,height);
 	dsc.header.cf=LV_IMG_CF_TRUE_COLOR;
-	dsc.header.w=logo.Width,dsc.header.h=logo.Height;
+	dsc.header.w=width,dsc.header.h=height;
 	dsc.data_size=LV_IMG_BUF_SIZE_TRUE_COLOR(dsc.header.w,dsc.header.h);
 	if(!(buffer=malloc(dsc.data_size)))return false;
 	dsc.data=(uint8_t*)buffer;
@@ -62,24 +61,13 @@ static bool draw_edk2_logo(lv_obj_t*obj){
 	for(lv_coord_t y=0;y<dsc.header.h;y++){
 		for(lv_coord_t x=0;x<dsc.header.w;x++){
 			off=y*dsc.header.w+x;
-			buffer[off].ch.red=logo.Bitmap[off].Red;
-			buffer[off].ch.blue=logo.Bitmap[off].Blue;
-			buffer[off].ch.green=logo.Bitmap[off].Green;
-			buffer[off].ch.alpha=logo.Bitmap[off].Reserved;
+			buffer[off].ch.red=logoBitmap[off].Red;
+			buffer[off].ch.blue=logoBitmap[off].Blue;
+			buffer[off].ch.green=logoBitmap[off].Green;
+			buffer[off].ch.alpha=logoBitmap[off].Reserved;
 		}
 	}
-	switch(attr){
-		case EdkiiPlatformLogoDisplayAttributeLeftTop:align=LV_ALIGN_TOP_LEFT;break;
-		case EdkiiPlatformLogoDisplayAttributeCenterTop:align=LV_ALIGN_TOP_MID;break;
-		case EdkiiPlatformLogoDisplayAttributeRightTop:align=LV_ALIGN_TOP_RIGHT;break;
-		case EdkiiPlatformLogoDisplayAttributeCenterRight:align=LV_ALIGN_RIGHT_MID;break;
-		case EdkiiPlatformLogoDisplayAttributeRightBottom:align=LV_ALIGN_BOTTOM_RIGHT;break;
-		case EdkiiPlatformLogoDisplayAttributeCenterBottom:align=LV_ALIGN_BOTTOM_MID;break;
-		case EdkiiPlatformLogoDisplayAttributeLeftBottom:align=LV_ALIGN_BOTTOM_LEFT;break;
-		case EdkiiPlatformLogoDisplayAttributeCenterLeft:align=LV_ALIGN_LEFT_MID;break;
-		case EdkiiPlatformLogoDisplayAttributeCenter:align=LV_ALIGN_CENTER;break;
-		default:align=LV_ALIGN_CENTER;break;
-	}
+	align=LV_ALIGN_CENTER;
 	lv_img_set_src(obj,&dsc);
 	lv_obj_align_to(obj,NULL,align,offx,offy);
 	if(ext->w<=0||ext->h<=0){

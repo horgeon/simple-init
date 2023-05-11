@@ -146,7 +146,8 @@ int run_boot_efi(boot_config*boot){
 	if(dpt)UnicodeStrToAsciiStrS(dpt,img,sizeof(img));
 	else AsciiStrCpyS(img,sizeof(img),"(Unknown)");
 	confd_save_file(NULL);
-	if(!boot->splash[0])BootLogoEnableLogo();
+	//if(!boot->splash[0])BootLogoEnableLogo();
+	
 	tlog_info("start image '%s' ...",img);
 	st=gBS->StartImage(ih,&size,NULL);
 	if(EFI_ERROR(st)){
